@@ -2,58 +2,58 @@
   <div class="geocode-container">
     <div class="geocode-text">从地名地址获取经纬度坐标工具，采用天地图API(仅支持广西)</div>
     <div class="geocode-data">
-      <el-row :gutter="5">
-        <el-col :span="10">
-          <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+      <el-row :gutter="32">
+        <el-col :xs="24" :sm="24" :lg="8">
+          <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" style="padding-bottom: 10px;" />
         </el-col>
-        <el-col :span="12">
-          <el-form ref="form" label-width="80px">
-            <el-row :gutter="24">
-              <el-col :span="12">
+        <el-col :xs="24" :sm="24" :lg="16">
+          <el-form ref="form" label-width="80px" style="margin-top: 10px;">
+            <el-row :gutter="10">
+              <el-col :xs="24" :sm="8" :lg="12">
                 <el-form-item label="首选地址">
-                  <el-select v-model="address1" placeholder="请选择解析地址字段">
+                  <el-select v-model="address1" placeholder="请选择解析地址字段" style="width: 100%;">
                     <template v-for="(add1,index) in tableHeader">
                       <el-option :key="index" :label="add1" :value="add1" />
                     </template>
                   </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="12">
+              <el-col :xs="24" :sm="8" :lg="12">
                 <el-form-item label="备选地址">
-                  <el-select v-model="address2" placeholder="请选择备选解析地址字段">
+                  <el-select v-model="address2" placeholder="请选择备选解析地址字段" style="width: 100%;">
                     <template v-for="(add2,index) in tableHeader">
                       <el-option :key="index" :label="add2" :value="add2" />
                     </template>
                   </el-select>
                 </el-form-item>
               </el-col>
-            </el-row>
-          </el-form>
-          <el-form ref="form" label-width="80px">
-            <el-row :gutter="24">
-              <el-col :span="12">
+              <el-col :xs="24" :sm="8" :lg="12">
                 <el-form-item label="行政区划">
-                  <el-select v-model="areacode" placeholder="请选择行政区划字段">
+                  <el-select v-model="areacode" placeholder="请选择行政区划字段" style="width: 100%;">
                     <template v-for="(ar,index) in tableHeader">
                       <el-option :key="index" :label="ar" :value="ar" />
                     </template>
                   </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="6">
-                <el-button type="primary" :disabled="exporting" :loading="encoding" @click="start">开始解析</el-button>
-              </el-col>
-              <el-col :span="6">
-                <el-button type="success" :disabled="encoding" :loading="exporting" @click="exportData">导出结果</el-button>
+              <el-col :xs="24" :sm="24" :lg="12">
+                <el-row :gutter="5">
+                  <el-col :span="12">
+                    <el-progress :text-inside="true" :stroke-width="22" :percentage="percentage" :color="percentage==100?'#13ce66':'#20a0ff'" style="margin-top: 3px;margin-left: 10px;" />
+                  </el-col>
+                  <el-col :span="12">
+                    <div style="display: inline-flex;justify-content: space-around; padding-bottom: 10px;">
+                      <el-button type="primary" size="mini" :disabled="exporting" :loading="encoding" @click="start">开始解析</el-button>
+                      <el-button type="success" size="mini" :disabled="encoding" :loading="exporting" @click="exportData">导出结果</el-button>
+                    </div>
+                  </el-col>
+                </el-row>
               </el-col>
             </el-row>
           </el-form>
         </el-col>
-        <el-col :span="2">
-          <el-progress type="circle" :percentage="percentage" :color="percentage==100?'#13ce66':'#20a0ff'" />
-        </el-col>
       </el-row>
-      <el-table :key="tableKey" v-loading="encoding" :data="tableData" border highlight-current-row height="800" style="width: 100%;margin-top:0px;">
+      <el-table :key="tableKey" v-loading="encoding" :data="tableData" border highlight-current-row height="780" style="width: 100%;">
         <el-table-column v-for="item of tableHeader" :key="item" :prop="item" :label="item" />
       </el-table>
     </div>
